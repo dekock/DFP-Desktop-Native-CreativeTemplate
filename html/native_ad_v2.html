@@ -1,0 +1,85 @@
+<html>
+  <body style="margin:0px; padding:0px">
+    <script>
+      var frameWidth = '[%iframewidth%]';
+      var frameHeight = '[%iframeheight%]';
+      var addaptHeight800 = 50;
+      var addaptHeight400 = 100;
+
+      window.onload = function() {
+        var windowWSize = window.parent.innerWidth;
+        for (var i = 0; i < window.parent.document.getElementsByClassName('native-ad').length; i++) {
+          var findAdSize = window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0];
+          var fWidth = frameWidth;
+          var fHeight = frameHeight;
+          fHeight = Number(fHeight.replace('px', ''));
+          var findPX = "px";
+          if (fWidth.indexOf(findPX) > -1) {
+            fWidth = Number(fWidth.replace('px', ''));
+            var nWidth = fWidth;
+            window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0].width = nWidth + 'px';
+            document.getElementById('ad-container').style.width = nWidth - 10 + "px";
+          } else {
+            fWidth = Number(fWidth.replace('%', ''));
+            var nWidth = fWidth;
+            window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0].width = nWidth + '%';
+            document.getElementById('ad-container').style.width = nWidth + "%";
+          }
+
+          var nHeight = fHeight;
+          if (windowWSize > "800") {
+            window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0].height = nHeight + 'px';
+            document.getElementById('ad-container').style.height = (nHeight) - 10 + "px";
+          } else if (windowWSize < '800' && windowWSize > '400') {
+            window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0].height = nHeight + addaptHeight800 + 'px';
+            document.getElementById('ad-container').style.height = (nHeight + addaptHeight800) - 10 + "px";
+          } else if (windowWSize < '400') {
+            window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0].height = nHeight + addaptHeight400 + 'px';
+            document.getElementById('ad-container').style.height = (nHeight + addaptHeight400) - 10 + "px";
+          }
+        }
+        var adHolder = document.getElementById('ad-container');
+        function adContainerHover() {
+          adHolder.style.backgroundColor = "[%HoverColour%]";
+        }
+        function adContainerHoverOut() {
+          adHolder.style.backgroundColor = "[%NormalColour%]";
+        }
+        adHolder.addEventListener('mouseover', adContainerHover, true);
+        adHolder.addEventListener('mouseout', adContainerHoverOut, true);
+      }
+
+      function onWindowResize() {
+        var windowWSize = window.parent.innerWidth;
+        var fWidth = frameWidth;
+        var fHeight = frameHeight;
+        fHeight = Number(fHeight.replace('px', ''));
+        var nHeight = fHeight;
+        var findPX = "px";
+        for (var i = 0; i < window.parent.document.getElementsByClassName('native-ad').length; i++) {
+          var findAdSize = window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0];
+          if (windowWSize > "800") {
+            window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0].height = nHeight + 'px';
+            document.getElementById('ad-container').style.height = (nHeight) - 10 + "px";
+          } else if (windowWSize < '800' && windowWSize > '400') {
+            window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0].height = nHeight + addaptHeight800 + 'px';
+            document.getElementById('ad-container').style.height = (nHeight + addaptHeight800) - 10 + "px";
+          } else if (windowWSize < '400') {
+            window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0].height = nHeight + addaptHeight400 + 'px';
+            document.getElementById('ad-container').style.height = (nHeight + addaptHeight400) - 10 + "px";
+          }
+        }
+      }
+      window.parent.addEventListener("resize", onWindowResize);
+    </script>
+    <div id="ad-container" style="[%NormalColour%]; padding:4px 0%; margin: 0px; word-wrap: break-word;  border-bottom: 1px solid #eeeeee; overflow:hidden; display:block;">
+      <div><img style="visibility: visible;  border: none;  float: left; margin-left: 6px; margin-right: 10px; margin-top: 5px;  margin-bottom: 0px;" src="[%Thumbnail%]" width="[%ThumbWidth%]" height="[%ThumbHeight%]" alt="[%AlternativeText%]"/></div>
+      <div>
+        <a target="_blank" style="display: block; width: 100%; height: 100%; position: relative;  z-index: 2;  color: [%TextColour%];  text-decoration: none;  font-family: [%FontName%];" href="%%CLICK_URL_UNESC%%[%ClickTag%]">
+          <h3 style="font-weight:bold; margin-top:3px">[%Heading%]</h3>
+          <p>[%Discription%]</p>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
