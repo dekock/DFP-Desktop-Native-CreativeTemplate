@@ -80,11 +80,11 @@
       window.parent.addEventListener("resize", onWindowResize);
     </script>
     <div id="ad-container" style="bacground-color:[%NormalColour%]; padding:4px 0%; margin: 0px; word-wrap: break-word;  border-bottom: 1px solid #eeeeee; overflow:hidden; display:block;">
-      <div><img style="visibility: visible;  border: none;  float: left; margin-left: 6px; margin-right: 10px; margin-top: 5px;  margin-bottom: 0px;" src="[%Thumbnail%]" width="[%ThumbWidth%]" height="[%ThumbHeight%]" alt="[%AlternativeText%]"/></div>
-      <div>
+      <div id="thumb"><img style="visibility: visible;  border: none;  float: left; margin-left: 6px; margin-right: 10px; margin-top: 5px;  margin-bottom: 5px;" src="[%Thumbnail%]" width="[%ThumbWidth%]" height="[%ThumbHeight%]" alt="[%AlternativeText%]"/></div>
+      <div id="content">
         <a target="_blank" style="display: block; width: 100%; height: 100%; position: relative;  z-index: 2;  color: [%TextColour%];  text-decoration: none;  font-family: [%FontName%];" href="%%CLICK_URL_UNESC%%[%ClickTag%]">
-          <h3 style="font-weight:bold; margin-top:3px">[%Heading%]</h3>
-          <p>[%Discription%]</p>
+          <h3 style="font-weight:bold; margin-top:3px; margin-bottom:5px">[%Heading%]</h3>
+          <p style="padding:8px; margin: 8px 0px">[%Discription%]</p>
         </a>
       </div>
     </div>
