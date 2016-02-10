@@ -1,0 +1,101 @@
+{
+  "name": "Listing v2",
+  "description": "",
+  "variables": [
+    {
+      "defaultValue": "Heading",
+      "label": "Heading",
+      "uniqueName": "Heading",
+      "isRequired": true,
+      "variableType": "STRING"
+    },
+    {
+      "label": "Discription",
+      "uniqueName": "Discription",
+      "isRequired": true,
+      "variableType": "STRING"
+    },
+    {
+      "mimeTypes": [],
+      "label": "Thumbnail",
+      "uniqueName": "Thumbnail",
+      "isRequired": true,
+      "variableType": "ASSET"
+    },
+    {
+      "label": "Alternative Text",
+      "uniqueName": "AlternativeText",
+      "isRequired": true,
+      "variableType": "STRING"
+    },
+    {
+      "label": "Thumb Width",
+      "uniqueName": "ThumbWidth",
+      "isRequired": true,
+      "variableType": "STRING"
+    },
+    {
+      "label": "Thumb Height",
+      "uniqueName": "ThumbHeight",
+      "isRequired": true,
+      "variableType": "STRING"
+    },
+    {
+      "defaultValue": "http://www.google.com",
+      "isTrackingUrl": false,
+      "urlType": "STANDARD_HTTP",
+      "label": "ClickTag",
+      "uniqueName": "ClickTag",
+      "isRequired": true,
+      "variableType": "URL"
+    },
+    {
+      "defaultValue": "#000000",
+      "label": "Text Colour",
+      "uniqueName": "TextColour",
+      "description": "Text colour black (All in hex code)",
+      "isRequired": true,
+      "variableType": "STRING"
+    },
+    {
+      "defaultValue": "100%",
+      "label": "iframewidth",
+      "uniqueName": "iframewidth",
+      "isRequired": true,
+      "variableType": "STRING"
+    },
+    {
+      "defaultValue": "100px",
+      "label": "iframeheight",
+      "uniqueName": "iframeheight",
+      "isRequired": true,
+      "variableType": "STRING"
+    },
+    {
+      "defaultValue": "Arial",
+      "label": "Font Name",
+      "uniqueName": "FontName",
+      "isRequired": true,
+      "variableType": "STRING"
+    },
+    {
+      "defaultValue": "#fffee0",
+      "label": "Hover Colour",
+      "uniqueName": "HoverColour",
+      "isRequired": true,
+      "variableType": "STRING"
+    },
+    {
+      "defaultValue": "#ffffff",
+      "label": "Normal Colour",
+      "uniqueName": "NormalColour",
+      "isRequired": true,
+      "variableType": "STRING"
+    }
+  ],
+  "formatter": "\u003chtml\u003e\n  \u003cbody style\u003d\"margin:0px; padding:0px\"\u003e\n    \u003cscript\u003e\n      var frameWidth \u003d \u0027[%iframewidth%]\u0027;\n      var frameHeight \u003d \u0027[%iframeheight%]\u0027;\n      var addaptHeight800 \u003d 50;\n      var addaptHeight400 \u003d 100;\n\n      window.onload \u003d function() {\n        //checing user screen width\n        var windowWSize \u003d window.parent.innerWidth;\n        //looping through ad slots to see which has the class native-ad and then applying the settings to each\n        for (var i \u003d 0; i \u003c window.parent.document.getElementsByClassName(\u0027native-ad\u0027).length; i++) {\n          var findAdSize \u003d window.parent.document.getElementById(\u0027native-ad-\u0027 + i).getElementsByTagName(\u0027div\u0027)[0].getElementsByTagName(\u0027iframe\u0027)[0];\n          var fWidth \u003d frameWidth;\n          var fHeight \u003d frameHeight;\n          //adjusting width and height based on input value, also checking if it\u0027s in px or in %\n          fHeight \u003d Number(fHeight.replace(\u0027px\u0027, \u0027\u0027));\n          var findPX \u003d \"px\";\n          if (fWidth.indexOf(findPX) \u003e -1) {\n            fWidth \u003d Number(fWidth.replace(\u0027px\u0027, \u0027\u0027));\n            var nWidth \u003d fWidth;\n            window.parent.document.getElementById(\u0027native-ad-\u0027 + i).getElementsByTagName(\u0027div\u0027)[0].getElementsByTagName(\u0027iframe\u0027)[0].width \u003d nWidth + \u0027px\u0027;\n            document.getElementById(\u0027ad-container\u0027).style.width \u003d nWidth - 10 + \"px\";\n          } else {\n            fWidth \u003d Number(fWidth.replace(\u0027%\u0027, \u0027\u0027));\n            var nWidth \u003d fWidth;\n            window.parent.document.getElementById(\u0027native-ad-\u0027 + i).getElementsByTagName(\u0027div\u0027)[0].getElementsByTagName(\u0027iframe\u0027)[0].width \u003d nWidth + \u0027%\u0027;\n            document.getElementById(\u0027ad-container\u0027).style.width \u003d nWidth + \"%\";\n          }\n          //adjast height of each element based on the width of the users window\n          var nHeight \u003d fHeight;\n          if (windowWSize \u003e \"800\") {\n            window.parent.document.getElementById(\u0027native-ad-\u0027 + i).getElementsByTagName(\u0027div\u0027)[0].getElementsByTagName(\u0027iframe\u0027)[0].height \u003d nHeight + \u0027px\u0027;\n            document.getElementById(\u0027ad-container\u0027).style.height \u003d (nHeight) - 10 + \"px\";\n            document.getElementById(\u0027ad-container\u0027).style.backgroundColor \u003d \u0027[%NormalColour%]\u0027;\n          } else if (windowWSize \u003c \u0027800\u0027 \u0026\u0026 windowWSize \u003e \u0027400\u0027) {\n            window.parent.document.getElementById(\u0027native-ad-\u0027 + i).getElementsByTagName(\u0027div\u0027)[0].getElementsByTagName(\u0027iframe\u0027)[0].height \u003d nHeight + addaptHeight800 + \u0027px\u0027;\n            document.getElementById(\u0027ad-container\u0027).style.height \u003d (nHeight + addaptHeight800) - 10 + \"px\";\n            document.getElementById(\u0027ad-container\u0027).style.backgroundColor \u003d \u0027[%NormalColour%]\u0027;\n          } else if (windowWSize \u003c \u0027400\u0027) {\n            window.parent.document.getElementById(\u0027native-ad-\u0027 + i).getElementsByTagName(\u0027div\u0027)[0].getElementsByTagName(\u0027iframe\u0027)[0].height \u003d nHeight + addaptHeight400 + \u0027px\u0027;\n            document.getElementById(\u0027ad-container\u0027).style.height \u003d (nHeight + addaptHeight400) - 10 + \"px\";\n            document.getElementById(\u0027ad-container\u0027).style.backgroundColor \u003d \u0027[%NormalColour%]\u0027;\n          }\n        }\n        //Change background colour on hover\n        var adHolder \u003d document.getElementById(\u0027ad-container\u0027);\n        function adContainerHover() {\n          adHolder.style.backgroundColor \u003d \"[%HoverColour%]\";\n        }\n        function adContainerHoverOut() {\n          adHolder.style.backgroundColor \u003d \"[%NormalColour%]\";\n        }\n        adHolder.addEventListener(\u0027mouseover\u0027, adContainerHover, true);\n        adHolder.addEventListener(\u0027mouseout\u0027, adContainerHoverOut, true);\n      }\n      //check when user resizes screen the ad will adjust in width and height\n      function onWindowResize() {\n        var windowWSize \u003d window.parent.innerWidth;\n        var fWidth \u003d frameWidth;\n        var fHeight \u003d frameHeight;\n        fHeight \u003d Number(fHeight.replace(\u0027px\u0027, \u0027\u0027));\n        var nHeight \u003d fHeight;\n        var findPX \u003d \"px\";\n        for (var i \u003d 0; i \u003c window.parent.document.getElementsByClassName(\u0027native-ad\u0027).length; i++) {\n          var findAdSize \u003d window.parent.document.getElementById(\u0027native-ad-\u0027 + i).getElementsByTagName(\u0027div\u0027)[0].getElementsByTagName(\u0027iframe\u0027)[0];\n          if (windowWSize \u003e \"800\") {\n            window.parent.document.getElementById(\u0027native-ad-\u0027 + i).getElementsByTagName(\u0027div\u0027)[0].getElementsByTagName(\u0027iframe\u0027)[0].height \u003d nHeight + \u0027px\u0027;\n            document.getElementById(\u0027ad-container\u0027).style.height \u003d (nHeight) - 10 + \"px\";\n          } else if (windowWSize \u003c \u0027800\u0027 \u0026\u0026 windowWSize \u003e \u0027400\u0027) {\n            window.parent.document.getElementById(\u0027native-ad-\u0027 + i).getElementsByTagName(\u0027div\u0027)[0].getElementsByTagName(\u0027iframe\u0027)[0].height \u003d nHeight + addaptHeight800 + \u0027px\u0027;\n            document.getElementById(\u0027ad-container\u0027).style.height \u003d (nHeight + addaptHeight800) - 10 + \"px\";\n          } else if (windowWSize \u003c \u0027400\u0027) {\n            window.parent.document.getElementById(\u0027native-ad-\u0027 + i).getElementsByTagName(\u0027div\u0027)[0].getElementsByTagName(\u0027iframe\u0027)[0].height \u003d nHeight + addaptHeight400 + \u0027px\u0027;\n            document.getElementById(\u0027ad-container\u0027).style.height \u003d (nHeight + addaptHeight400) - 10 + \"px\";\n          }\n        }\n      }\n      window.parent.addEventListener(\"resize\", onWindowResize);\n    \u003c/script\u003e\n    \u003cdiv id\u003d\"ad-container\" style\u003d\"bacground-color:[%NormalColour%]; padding:4px 0%; margin: 0px; word-wrap: break-word;  border-bottom: 1px solid #eeeeee; overflow:hidden; display:block;\"\u003e\n      \u003cdiv\u003e\u003cimg style\u003d\"visibility: visible;  border: none;  float: left; margin-left: 6px; margin-right: 10px; margin-top: 5px;  margin-bottom: 0px;\" src\u003d\"[%Thumbnail%]\" width\u003d\"[%ThumbWidth%]\" height\u003d\"[%ThumbHeight%]\" alt\u003d\"[%AlternativeText%]\"/\u003e\u003c/div\u003e\n      \u003cdiv\u003e\n        \u003ca target\u003d\"_blank\" style\u003d\"display: block; width: 100%; height: 100%; position: relative;  z-index: 2;  color: [%TextColour%];  text-decoration: none;  font-family: [%FontName%];\" href\u003d\"%%CLICK_URL_UNESC%%[%ClickTag%]\"\u003e\n          \u003ch3 style\u003d\"font-weight:bold; margin-top:3px\"\u003e[%Heading%]\u003c/h3\u003e\n          \u003cp\u003e[%Discription%]\u003c/p\u003e\n        \u003c/a\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n  \u003c/body\u003e\n\u003c/html\u003e\n",
+  "type": "USER_DEFINED",
+  "isInterstitial": false,
+  "isNativeEligible": false,
+  "isSafeFrameCompatible": false
+}

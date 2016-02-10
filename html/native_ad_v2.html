@@ -7,11 +7,14 @@
       var addaptHeight400 = 100;
 
       window.onload = function() {
+        //checing user screen width
         var windowWSize = window.parent.innerWidth;
+        //looping through ad slots to see which has the class native-ad and then applying the settings to each
         for (var i = 0; i < window.parent.document.getElementsByClassName('native-ad').length; i++) {
           var findAdSize = window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0];
           var fWidth = frameWidth;
           var fHeight = frameHeight;
+          //adjusting width and height based on input value, also checking if it's in px or in %
           fHeight = Number(fHeight.replace('px', ''));
           var findPX = "px";
           if (fWidth.indexOf(findPX) > -1) {
@@ -25,19 +28,23 @@
             window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0].width = nWidth + '%';
             document.getElementById('ad-container').style.width = nWidth + "%";
           }
-
+          //adjast height of each element based on the width of the users window
           var nHeight = fHeight;
           if (windowWSize > "800") {
             window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0].height = nHeight + 'px';
             document.getElementById('ad-container').style.height = (nHeight) - 10 + "px";
+            document.getElementById('ad-container').style.backgroundColor = '[%NormalColour%]';
           } else if (windowWSize < '800' && windowWSize > '400') {
             window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0].height = nHeight + addaptHeight800 + 'px';
             document.getElementById('ad-container').style.height = (nHeight + addaptHeight800) - 10 + "px";
+            document.getElementById('ad-container').style.backgroundColor = '[%NormalColour%]';
           } else if (windowWSize < '400') {
             window.parent.document.getElementById('native-ad-' + i).getElementsByTagName('div')[0].getElementsByTagName('iframe')[0].height = nHeight + addaptHeight400 + 'px';
             document.getElementById('ad-container').style.height = (nHeight + addaptHeight400) - 10 + "px";
+            document.getElementById('ad-container').style.backgroundColor = '[%NormalColour%]';
           }
         }
+        //Change background colour on hover
         var adHolder = document.getElementById('ad-container');
         function adContainerHover() {
           adHolder.style.backgroundColor = "[%HoverColour%]";
@@ -48,7 +55,7 @@
         adHolder.addEventListener('mouseover', adContainerHover, true);
         adHolder.addEventListener('mouseout', adContainerHoverOut, true);
       }
-
+      //check when user resizes screen the ad will adjust in width and height
       function onWindowResize() {
         var windowWSize = window.parent.innerWidth;
         var fWidth = frameWidth;
@@ -72,7 +79,7 @@
       }
       window.parent.addEventListener("resize", onWindowResize);
     </script>
-    <div id="ad-container" style="[%NormalColour%]; padding:4px 0%; margin: 0px; word-wrap: break-word;  border-bottom: 1px solid #eeeeee; overflow:hidden; display:block;">
+    <div id="ad-container" style="bacground-color:[%NormalColour%]; padding:4px 0%; margin: 0px; word-wrap: break-word;  border-bottom: 1px solid #eeeeee; overflow:hidden; display:block;">
       <div><img style="visibility: visible;  border: none;  float: left; margin-left: 6px; margin-right: 10px; margin-top: 5px;  margin-bottom: 0px;" src="[%Thumbnail%]" width="[%ThumbWidth%]" height="[%ThumbHeight%]" alt="[%AlternativeText%]"/></div>
       <div>
         <a target="_blank" style="display: block; width: 100%; height: 100%; position: relative;  z-index: 2;  color: [%TextColour%];  text-decoration: none;  font-family: [%FontName%];" href="%%CLICK_URL_UNESC%%[%ClickTag%]">
